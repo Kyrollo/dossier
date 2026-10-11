@@ -1,0 +1,14 @@
+{
+  "product": "dossier",
+  "timestamp": 1791717477.5160317,
+  "status": "PASSED",
+  "total_benchmark_time_seconds": 3.869,
+  "extraction_latency_us": 749.7,
+  "executives_extracted": 3,
+  "risks_extracted": 3,
+  "risk_score": 56,
+  "gpu_synthesis_latency_ms": 3867.67,
+  "target_company": "Aetheria Cloud Infrastructure",
+  "evidence_sources_count": 2,
+  "model": "qwen2.5:0.5b"
+}
