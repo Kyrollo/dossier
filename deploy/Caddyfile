@@ -1,0 +1,7 @@
+dossier.local {
+    reverse_proxy localhost:3006
+
+    handle_path /api/* {
+        reverse_proxy localhost:8006
+    }
+}
