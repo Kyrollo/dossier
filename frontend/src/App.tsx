@@ -5,18 +5,20 @@ import { RiskRadarTab } from './components/RiskRadarTab';
 import { AutonomousLabTab } from './components/AutonomousLabTab';
 import { fetchDossiers } from './lib/api';
 import { DueDiligenceDossier } from './types/dossier';
+import { FileUploadZone } from './components/FileUploadZone';
 import {
   FileText,
   ShieldAlert,
   Search,
   Loader2,
   AlertTriangle,
+  FolderUp,
 } from 'lucide-react';
 
 export default function App() {
   const [dossiers, setDossiers] = useState<DueDiligenceDossier[]>([]);
   const [selectedDossierId, setSelectedDossierId] = useState<string>('dos-aeth-101');
-  const [activeTab, setActiveTab] = useState<'dossier' | 'radar' | 'lab'>('dossier');
+  const [activeTab, setActiveTab] = useState<'dossier' | 'radar' | 'lab' | 'uploads'>('dossier');
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -95,6 +97,18 @@ export default function App() {
             <Search className="w-4 h-4" />
             <span>Autonomous Research Lab</span>
           </button>
+
+          <button
+            onClick={() => setActiveTab('uploads')}
+            className={`py-3 px-4 text-xs font-semibold flex items-center gap-2 border-b-2 transition-colors ${
+              activeTab === 'uploads'
+                ? 'border-amber-500 text-amber-400 bg-amber-500/5'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            <FolderUp className="w-4 h-4" />
+            <span>SEC & Filing Upload</span>
+          </button>
         </div>
       </div>
 
@@ -121,13 +135,31 @@ export default function App() {
               </button>
             </div>
           </div>
-        ) : currentDossier ? (
+        ) : (
           <>
-            {activeTab === 'dossier' && <DueDiligenceTab dossier={currentDossier} />}
-            {activeTab === 'radar' && <RiskRadarTab dossier={currentDossier} />}
+            {activeTab === 'dossier' && currentDossier && <DueDiligenceTab dossier={currentDossier} />}
+            {activeTab === 'radar' && currentDossier && <RiskRadarTab dossier={currentDossier} />}
             {activeTab === 'lab' && <AutonomousLabTab onDossierGenerated={handleDossierGenerated} />}
+            {activeTab === 'uploads' && (
+              <div className="p-6 max-w-5xl mx-auto space-y-4 overflow-y-auto max-h-[calc(100vh-140px)]">
+                <div>
+                  <h3 className="text-lg font-bold text-foreground">Corporate Filings & Research Documents Upload</h3>
+                  <p className="text-xs text-muted-foreground">
+                    Upload SEC filings (.pdf), annual reports, or research memos (.docx, .txt) to extract leadership, financials, and risk vectors for automated due diligence.
+                  </p>
+                </div>
+                <FileUploadZone
+                  apiBaseUrl="/api/v1"
+                  allowedExtensions={['.pdf', '.docx', '.txt', '.csv', '.json', '.md']}
+                  acceptedFormatsText="PDF Filings, Word (.docx), TXT, CSV, JSON"
+                  onFileProcessed={() => {
+                    loadDossiers();
+                  }}
+                />
+              </div>
+            )}
           </>
-        ) : null}
+        )}
       </main>
     </div>
   );

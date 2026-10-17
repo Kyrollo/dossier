@@ -16,6 +16,7 @@ import {
   Clock,
   CheckCircle2,
 } from 'lucide-react';
+import { MarkdownRenderer } from './MarkdownRenderer';
 
 interface DueDiligenceTabProps {
   dossier: DueDiligenceDossier;
@@ -57,9 +58,7 @@ export const DueDiligenceTab: React.FC<DueDiligenceTabProps> = ({ dossier }) => 
               <Sparkles className="w-3.5 h-3.5" />
               <span>Executive Due Diligence Briefing (Ollama {dossier.model})</span>
             </div>
-            <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap font-sans">
-              {dossier.executive_summary}
-            </p>
+            <MarkdownRenderer content={dossier.executive_summary} defaultMaxHeight="max-h-[500px]" />
           </div>
         </div>
 

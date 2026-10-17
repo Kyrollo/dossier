@@ -15,6 +15,7 @@ import {
   FileCheck,
   Zap,
 } from 'lucide-react';
+import { MarkdownRenderer } from './MarkdownRenderer';
 
 interface AutonomousLabTabProps {
   onDossierGenerated: (dossier: DueDiligenceDossier) => void;
@@ -255,9 +256,7 @@ export const AutonomousLabTab: React.FC<AutonomousLabTabProps> = ({
                 <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider">
                   Executive Due Diligence Summary
                 </h4>
-                <p className="text-xs text-foreground leading-relaxed whitespace-pre-wrap">
-                  {result.executive_summary}
-                </p>
+                <MarkdownRenderer content={result.executive_summary} defaultMaxHeight="max-h-[420px]" />
               </div>
 
               {/* Key Executives */}

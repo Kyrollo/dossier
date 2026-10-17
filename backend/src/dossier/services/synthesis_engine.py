@@ -114,7 +114,7 @@ async def generate_due_diligence_dossier(
             {"role": "user", "content": user_prompt},
         ],
         "temperature": 0.2,
-        "max_tokens": 512,
+        "max_tokens": 4096,
     }
     headers = {
         "Authorization": f"Bearer {settings.LLM_API_KEY}",
