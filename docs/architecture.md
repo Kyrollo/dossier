@@ -25,7 +25,7 @@ flowchart TD
     end
 
     subgraph Compute["Local GPU Compute"]
-        Ollama["Ollama Engine (RTX A5000 Laptop GPU)\nModel: qwen2.5:0.5b (Port 11434)"]
+        Ollama["Ollama Engine (Dedicated NVIDIA GPU)\nModel: qwen2.5:0.5b (Port 11434)"]
     end
 
     Analyst -->|Conducts Diligence & Explores Radar| Frontend
@@ -54,7 +54,7 @@ sequenceDiagram
     participant Extractor as Extractor Engine
     participant Taxonomy as Risk Taxonomy
     participant Synthesizer as Synthesis Engine
-    participant GPU as Local Ollama GPU (RTX A5000)
+    participant GPU as Local Ollama GPU (Dedicated NVIDIA GPU)
     participant Store as Dossier Store
 
     Analyst->>Gateway: POST /api/v1/dossiers/generate (Target Company, Ticker, Focus Areas)
@@ -83,6 +83,6 @@ sequenceDiagram
 | **Backend Framework** | FastAPI (Python 3.12) | Asynchronous REST endpoints with Pydantic v2 schemas and RFC 7807 problem details. |
 | **Extractor Engine** | Regex & Corporate Pattern Matcher | High-throughput sub-millisecond information extraction (<750µs). |
 | **Risk Taxonomy** | Weighted 4-Pillar Model | Calibrated 0-100 risk rating across Regulatory, Legal, Operational, and Market dimensions. |
-| **Inference Engine** | Local Ollama (`qwen2.5:0.5b`) | Zero cloud token leaks; private corporate intelligence on local NVIDIA RTX A5000 GPU. |
+| **Inference Engine** | Local Ollama (`qwen2.5:0.5b`) | Zero cloud token leaks; private corporate intelligence on local NVIDIA Dedicated NVIDIA GPU. |
 | **Frontend UI** | React 18 + Tailwind CSS | Bloomberg-style financial investigation terminal with 4-pillar risk radar and verifiable footnotes. |
 | **Zero-Simulation** | Automated Guard Verified | 100% real corporate data structures and real local GPU generation. |
